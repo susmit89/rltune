@@ -1,10 +1,11 @@
 
 
 import pymysql
-con = pymysql.connect(host='18.236.158.133',
-                      port=9000,
-                      user='root',
-                      password='root123')
+import os
+con = pymysql.connect(host=os.environ.get('MYSQL_HOST'),
+                      port=os.environ.get('MYSQL_PORT'),
+                      user=os.environ.get('MYSQL_USER'),
+                      password=os.environ.get('MYSQL_PASS'))
 
 cur = con.cursor()
 
