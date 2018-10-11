@@ -1,4 +1,7 @@
 import gym
+from gym import error, spaces, utils
+
+import numpy as np
 
 
 class DBENV(gym.Env):
@@ -9,7 +12,10 @@ class DBENV(gym.Env):
     ACTION = ["N", "S", "E", "W"]
 
     def __init__(self):
-
+        maze_size=(30, 30)
+        low = np.zeros(len(maze_size), dtype=int)
+        high =  np.array(maze_size, dtype=int) - np.ones(len(maze_size), dtype=int)
+        self.action_space = spaces.Box(low, high)
         pass
 
     def __del__(self):
