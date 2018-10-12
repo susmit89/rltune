@@ -16,7 +16,7 @@ class DBENV(gym.Env):
         low = np.zeros(len(t_tables), dtype=int)
         high =  np.array(t_tables, dtype=int) - np.ones(len(t_tables), dtype=int)
         self.action_space = spaces.Box(low, high,dtype=int)
-        self.observation_space = spaces.Box(-1, 1, shape=(2*len(t_columns),), dtype='int')
+        self.observation_space = spaces.Box(-1, 1, shape=(2*len(t_columns),), dtype=int)
 
     def __del__(self):
         pass
