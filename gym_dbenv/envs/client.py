@@ -23,6 +23,8 @@ import os
 class DBENGINE():
 
     def __init__(self):
+        with open(os.environ.get('SQLQUERY'), 'r') as myfile:
+             self.data=myfile.read()
         con = pymysql.connect(host=os.environ.get('MYSQL_HOST'),
                               port=int(os.environ.get('MYSQL_PORT')),
                               user=os.environ.get('MYSQL_USER'),
@@ -45,3 +47,13 @@ class DBENGINE():
     def get_column_count(self):
         self.cur.execute("SELECT TABLE_NAME, count(*)  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\"  GROUP BY TABLE_NAME HAVING COUNT(*)>1 ;")
         return self.cur.fetchall()
+
+    def get_query_cost(self,query):
+        self.cur.execute("explain format=JSON "+ query)
+        return self.cur.fetchall()
+
+    def clear_index(self):
+        pass
+
+    def get_query_workload(self):
+        return self.data

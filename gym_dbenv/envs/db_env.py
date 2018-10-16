@@ -10,6 +10,7 @@ class DBENV(gym.Env):
     }
     def __init__(self):
         db = DBENGINE()
+        print db.get_query_workload()
         t_columns = db.column_schema()
         n_columns = db.get_column_count()
         t_tables=tuple([i[1]+1 for i in n_columns])
