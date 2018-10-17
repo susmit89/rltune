@@ -2,7 +2,8 @@
 
 import pymysql
 import os
-
+from random import choice
+from string import ascii_lowercase
 
 
 
@@ -53,14 +54,17 @@ class DBENGINE():
         self.cur.execute("explain format=JSON "+ query)
         return self.cur.fetchall()
 
-    def create_index(self, index_name, index):
+    def create_index(self, index):
+        index_name = "rl_" + "".join([choice(ascii_lowercase) for _ in range(4)])
         self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
         self.index_table.append((index_name,index[0]))
         print self.index_table
         pass
 
-    def clear_index(self, table, index):
-        pass
+    def clear_index(self):
+        for i in self.index_table:
+            self.cur.execute("ALTER TABLE "+i[1]+" DROP INDEX "+i[0]+";")
+        self.index_table = []
 
     def get_query_workload(self):
         return self.data
