@@ -31,6 +31,7 @@ class DBENGINE():
                               password=os.environ.get('MYSQL_PASS'),
                               db=os.environ.get('MYSQL_DB'))
         self.cur = con.cursor()
+        self.index_table = []
 
     def state(self, query):
         self.cur.execute(query)
@@ -52,7 +53,13 @@ class DBENGINE():
         self.cur.execute("explain format=JSON "+ query)
         return self.cur.fetchall()
 
-    def clear_index(self):
+    def create_index(self, index_name, index):
+        self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
+        self.index_table.append((index_name,index[0]))
+        print self.index_table
+        pass
+
+    def clear_index(self, table, index):
         pass
 
     def get_query_workload(self):

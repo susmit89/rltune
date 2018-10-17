@@ -11,6 +11,7 @@ class DBENV(gym.Env):
     def __init__(self):
         db = DBENGINE()
         print db.get_query_workload()
+        #db.clear_index()
         t_columns = db.column_schema()
         n_columns = db.get_column_count()
         t_tables=tuple([i[1]+1 for i in n_columns])
@@ -29,6 +30,7 @@ class DBENV(gym.Env):
         pass
 
     def step(self, action):
+        db.create_index('c1',t_columns[32])
         done = 0
         reward = 0
         self.state = 0
