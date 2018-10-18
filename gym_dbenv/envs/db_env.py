@@ -2,7 +2,8 @@ import gym
 from gym import error, spaces, utils
 from client import DBENGINE
 import numpy as np
-
+import random
+import re
 
 class DBENV(gym.Env):
 
@@ -19,9 +20,19 @@ class DBENV(gym.Env):
         self.observation_space = spaces.Box(-1, 1, shape=(2*len(self.t_columns),), dtype=int)
         self.state = None
         self.index_count = 4
+
     def step(self, action):
-        print("Action: %s",action)
+        #print("Action: %s",action)
         #self.db.create_index(self.t_columns[32])
+        n = random.randint(0,len(self.queries)-1)
+        print n
+        query = self.queries[n]
+        print self.queries[n]
+        table = re.search(r"FROM\s(.*)WHERE", query).groups()
+        print "table", table
+        sub = re.search(r"WHERE\s(.*)", query).groups()[0]
+        col = re.sub(" \d+|AND|>|=|<|.\d+|FOR\s(.*)", " ", sub).split()
+        print "column", col
         print("count",self.index_count)
         if self.index_count == -1:
            done = True
