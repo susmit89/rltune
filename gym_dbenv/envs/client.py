@@ -57,7 +57,7 @@ class DBENGINE():
     def create_index(self, index):
         index_name = "rl_" + "".join([choice(ascii_lowercase) for _ in range(4)])
         self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
-        self.index_table.append((index_name,index[0]))
+        self.index_table.append((index_name,index[0],index[1]))
         print self.index_table
         pass
 
