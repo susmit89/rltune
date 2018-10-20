@@ -20,6 +20,7 @@ from string import ascii_lowercase
 #cur.execute("SHOW STATUS")
 #rows  = cur.fetchall()
 
+TABLE = "ITEM"
 
 class DBENGINE():
 
@@ -33,21 +34,22 @@ class DBENGINE():
                               db=os.environ.get('MYSQL_DB'))
         self.cur = con.cursor()
         self.index_table = []
+        self.indexed_column = []
 
     def state(self, query):
         self.cur.execute(query)
         return self.cur.fetchall()
 
     def column_schema(self):
-        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\"")
+        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" AND  TABLE_NAME = \""+TABLE+"\"")
         return self.cur.fetchall()
 
     def index_schema(self):
-        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\"")
+        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" AND  TABLE_NAME = \""+TABLE+"\"")
         return self.cur.fetchall()
 
     def get_column_count(self):
-        self.cur.execute("SELECT TABLE_NAME, count(*)  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\"  GROUP BY TABLE_NAME HAVING COUNT(*)>1 ;")
+        self.cur.execute("SELECT TABLE_NAME, count(*)  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\"  AND  TABLE_NAME = \""+TABLE+"\" GROUP BY TABLE_NAME HAVING COUNT(*)>1 ;")
         return self.cur.fetchall()
 
     def get_query_cost(self,query):
@@ -59,7 +61,6 @@ class DBENGINE():
         self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
         self.index_table.append((index_name,index[0],index[1]))
         print self.index_table
-        pass
 
     def clear_index(self):
         for i in self.index_table:
