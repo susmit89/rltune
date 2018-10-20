@@ -97,7 +97,7 @@ class DBENV(gym.Env):
         #print "table", table
         sub = re.search(r"WHERE\s(.*)", query).groups()[0]
         col = re.sub(" \d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|\'.*\'|\".*\"|;", " ", sub).split()
-        #print col
+        print col
         s=np.array([self.d_table[table][x] for x in col])
         index_array = np.append(s,self.index_list+self.col_len)
         #print index_array
