@@ -34,13 +34,13 @@ class DBENV(gym.Env):
         self.query_cost = None
 
     def step(self, action):
-        print("Action: %s",self.t_columns[action])
+        #print("Action: %s",self.t_columns[action])
         if action not in self.index_list:
            self.db.create_index(self.t_columns[action])
         self.index_list = np.append(self.index_list,[action])
         #print self.index_list
-        print self.cost
-        print self.query_cost
+        #print self.cost
+        #print self.query_cost
         #print("count",self.index_count)
         if self.index_count == 0:
            done = True
@@ -97,7 +97,7 @@ class DBENV(gym.Env):
         #print "table", table
         sub = re.search(r"WHERE\s(.*)", query).groups()[0]
         col = re.sub(" \d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|\'.*\'|\".*\"|;", " ", sub).split()
-        print col
+        #print col
         s=np.array([self.d_table[table][x] for x in col])
         index_array = np.append(s,self.index_list+self.col_len)
         #print index_array

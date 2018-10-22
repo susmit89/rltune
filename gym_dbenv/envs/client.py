@@ -60,7 +60,7 @@ class DBENGINE():
         index_name = "rl_" + "".join([choice(ascii_lowercase) for _ in range(4)])
         self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
         self.index_table.append((index_name,index[0],index[1]))
-        print self.index_table
+        #print self.index_table
 
     def clear_index(self):
         for i in self.index_table:
