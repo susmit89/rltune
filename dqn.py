@@ -46,6 +46,8 @@ class DQNAgent:
         model = Sequential()
         model.add(Dense(24, input_dim=self.state_size, activation='relu'))
         model.add(Dense(24, activation='relu'))
+        model.add(Dense(24, activation='relu'))
+        model.add(Dense(24, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss=self._huber_loss,
                       optimizer=Adam(lr=self.learning_rate))
@@ -91,7 +93,10 @@ if __name__ == "__main__":
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size)
-    # agent.load("./save/cartpole-ddqn.h5")
+    try:
+      agent.load("db_model.h5")
+    except:
+      pass
     done = False
     batch_size = 32
 
@@ -115,6 +120,6 @@ if __name__ == "__main__":
                 break
             if len(agent.memory) > batch_size:
                 agent.replay(batch_size)
-        print "Total REWARD =",  t_reward      
-        # if e % 10 == 0:
-        #     agent.save("./save/cartpole-ddqn.h5")
+        print "Total REWARD =",  t_reward
+        if e % 10 == 0:
+             agent.save("db_model.h5")

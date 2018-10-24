@@ -20,7 +20,7 @@ from string import ascii_lowercase
 #cur.execute("SHOW STATUS")
 #rows  = cur.fetchall()
 
-TABLE = "ITEM"
+TABLE = "CUSTOMER"
 
 class DBENGINE():
 
