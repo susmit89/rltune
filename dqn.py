@@ -11,7 +11,9 @@ from keras import backend as K
 
 import tensorflow as tf
 
-EPISODES = 5000
+import matplotlib.pyplot as plt
+
+EPISODES = 300
 
 class DQNAgent:
     def __init__(self, state_size, action_size):
@@ -20,7 +22,7 @@ class DQNAgent:
         self.memory = deque(maxlen=2000)
         self.gamma = 0.95    # discount rate
         self.epsilon = 1.0  # exploration rate
-        self.epsilon_min = 0.01
+        self.epsilon_min = 0.001
         self.epsilon_decay = 0.99
         self.learning_rate = 0.001
         self.model = self._build_model()
@@ -45,6 +47,7 @@ class DQNAgent:
         # Neural Net for Deep-Q learning Model
         model = Sequential()
         model.add(Dense(24, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(24, activation='relu'))
         model.add(Dense(24, activation='relu'))
         model.add(Dense(24, activation='relu'))
         model.add(Dense(24, activation='relu'))
@@ -88,11 +91,28 @@ class DQNAgent:
         self.model.save_weights(name)
 
 
+
+
 if __name__ == "__main__":
+
+
     env = gym.make('DB-v0')
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size)
+
+    ## mathplot
+    plot_1 = plt.subplot(211)
+    plt.ylabel('Set Indexed')
+    plt.xlabel('Steps')
+    plt.yticks(range(env.col_len),
+       list(zip(*env.t_columns)[1]))
+    plot_2 = plt.subplot(212)
+    plt.ylabel('exploration rate')
+    plt.xlabel('Steps')
+    #plt.yticks(range(env.col_len),
+    #   list(env.t_columns))
+
     try:
       agent.load("db_model.h5")
     except:
@@ -113,6 +133,9 @@ if __name__ == "__main__":
             next_state = np.reshape(next_state, [1, state_size])
             agent.remember(state, action, reward, next_state, done)
             state = next_state
+            plot_1.scatter(e,action,10)
+            plot_2.scatter(e,agent.epsilon,10)
+            plt.pause(0.05)
             if done:
                 agent.update_target_model()
                 print("episode: {}/{}, score: {}, e: {:.2}"
@@ -120,6 +143,8 @@ if __name__ == "__main__":
                 break
             if len(agent.memory) > batch_size:
                 agent.replay(batch_size)
+
+
         print "Total REWARD =",  t_reward
         if e % 10 == 0:
              agent.save("db_model.h5")

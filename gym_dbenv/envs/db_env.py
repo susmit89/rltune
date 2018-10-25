@@ -1,6 +1,5 @@
 import gym
 from gym import error, spaces, utils
-import matplotlib.pyplot as plt
 from client import DBENGINE
 import numpy as np
 import random
@@ -33,27 +32,10 @@ class DBENV(gym.Env):
         self.index_list = np.array([], dtype=int)
         self.cost = None
         self.query_cost = None
-        self.plot_1 = plt.subplot(211)
-        plt.gca().grid(True)
-        plt.ylabel('Set Indexed')
-        plt.xlabel('Steps')
-        plt.yticks(range(self.col_len),
-           list(self.t_columns))
-        self.plot_2 = plt.subplot(212)
-        plt.gca().grid(True)
-        plt.ylabel('Query Pattern')
-        plt.xlabel('Steps')
-        plt.yticks(range(self.col_len),
-           list(self.t_columns))
-        self.x = 0
-        self.y = 0
 
 
     def step(self, action):
-        #print("Action: %s",self.t_columns[action])
 
-        self.plot_1.scatter(self.x,action,5)
-        #self.plot_1.pause(0.001)
         if action not in self.index_list:
            self.db.create_index(self.t_columns[action])
         self.index_list = np.append(self.index_list,[action])
@@ -63,7 +45,6 @@ class DBENV(gym.Env):
         #print("count",self.index_count)
         if self.index_count == 0:
            done = True
-           self.x = self.x + 1
         else:
            done = False
         self.index_count = self.index_count - 1
@@ -119,9 +100,6 @@ class DBENV(gym.Env):
         col = re.sub(" \d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|\'.*\'|\".*\"|;", " ", sub).split()
         #print col
         s=np.array([self.d_table[table][x] for x in col])
-
-        self.plot_2.scatter(np.ones(len(s))*self.x,s,5)
-        plt.pause(0.001)
         index_array = np.append(s,self.index_list+self.col_len)
         #print index_array
         #print "column", col
