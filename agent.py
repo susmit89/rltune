@@ -4,7 +4,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
 from keras.optimizers import Adam
 from keras.models import load_model
-
+import rl
 from rl.agents import DQNAgent
 from rl.policy import BoltzmannQPolicy
 from rl.memory import SequentialMemory
@@ -36,8 +36,8 @@ except:
 print(model.summary())
 memory = SequentialMemory(limit=50000, window_length=1)
 policy = BoltzmannQPolicy()
-dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=5000,
-               target_model_update=1e-2, policy=policy)
+dqn = rl.agents.cem.CEMAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=5000
+               )
 dqn.compile("adam", metrics=['mae','accuracy'])
 
 dqn.fit(env, nb_steps=5000, visualize=False, verbose=2)

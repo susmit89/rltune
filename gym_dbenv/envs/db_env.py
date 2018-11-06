@@ -1,12 +1,13 @@
 import gym
 from gym import error, spaces, utils
 from client import DBENGINE
+from itertools import cycle
 import numpy as np
 import random
 import re
 import json
 
-INDEX_LIMIT = 3
+INDEX_LIMIT = 50
 
 class DBENV(gym.Env):
 
@@ -21,6 +22,8 @@ class DBENV(gym.Env):
         self.d_table = dict((x, {}) for x, y in self.n_columns)
         self.table_dict()
         self.query_dict = self.update_query_cost()
+        lst = range(len(self.query_dict.keys()))
+        self.query_len = cycle(lst)
         #print self.d_table
         #self.t_tables=tuple([i[1]+1 for i in self.n_columns])
         #low = np.zeros(len(self.t_tables), dtype=int)
@@ -32,14 +35,34 @@ class DBENV(gym.Env):
         self.index_list = np.array([], dtype=int)
         self.cost = None
         self.query_cost = None
+        self.n_query = None
 
 
     def step(self, action):
-
+        index_name = "rl_" + self.t_columns[action][0]+"_"+ self.t_columns[action][1]
+        print "Index set on ", self.t_columns[action][0], " for ",  self.t_columns[action][1]
         if action not in self.index_list:
-           self.db.create_index(self.t_columns[action])
+           self.db.create_index(self.t_columns[action],index_name)
         self.index_list = np.append(self.index_list,[action])
-        #print self.index_list
+        self.db.state(self.query)
+        self.query_cost = self.query_dict[self.n_query]["cost"]
+        data = json.loads(self.db.get_query_cost(self.query)[0][0])
+        self.cost = float(data["query_block"]["cost_info"]['query_cost'])
+        key = False
+        try:
+            print  "---------------", data["query_block"]["table"]["possible_keys"], "\n"
+            if index_name in data["query_block"]["table"]["possible_keys"]:
+                key = True
+                print("---------------found key")
+        except:
+            pass
+        try:
+            print  "---------------", data["query_block"]["ordering_operation"]["table"]["possible_keys"], "\n"
+            if index_name in data["query_block"]["ordering_operation"]["table"]["possible_keys"]:
+                key = True
+                print("---------------found key")
+        except:
+            pass
         #print self.cost
         #print self.query_cost
         #print("count",self.index_count)
@@ -49,10 +72,13 @@ class DBENV(gym.Env):
            done = False
         self.index_count = self.index_count - 1
         cost = max((self.query_cost/self.cost)-1,0)
-        reward = 0 if cost <= 0 else 1
+        reward = -1
+        if cost > 0 and key == True:
+            reward = 10
         self.state = self.get_state()
         #print "next_state",self.state
         info = {}
+        print "step=",self.index_count,"\t\t reward=",reward, "\tquery cost=",self.query_cost, "\tcost=", self.cost
         return self.state, reward, done, info
 
     def reset(self):
@@ -76,33 +102,35 @@ class DBENV(gym.Env):
 
     def update_query_cost(self):
         t_queries = {}
+        n=0
         for i in range(self.query_len):
             self.db.state(self.queries[i])
             data = json.loads(self.db.get_query_cost(self.queries[i])[0][0])
-            cost = data["query_block"]["cost_info"]['query_cost']
-            t_queries[i] = {"query":self.queries[i],
+            try:
+             cost = data["query_block"]["cost_info"]['query_cost']
+             t_queries[n] = {"query":self.queries[i],
                             "cost":float(cost) }
+             n=n+1
+            except:
+                print("Error in",self.queries[i])
         return t_queries
 
     def calculate_reward(self):
         self.db.state(self.queries[i])
 
     def get_state(self):
-        n = random.randint(0,self.query_len-1)
-        query = self.query_dict[n]["query"]
-        self.db.state(query)
-        data = json.loads(self.db.get_query_cost(query)[0][0])
-        self.cost = float(data["query_block"]["cost_info"]['query_cost'])
-        self.query_cost = self.query_dict[n]["cost"]
-        table = re.search(r"FROM\s(.*)WHERE", query).groups()[0].strip()
+        self.n_query = next(self.query_len)
+
+        self.query = self.query_dict[self.n_query]["query"]
+        table = re.search(r"FROM\s(.*)WHERE", self.query).groups()[0].strip()
         #print "table", table
-        sub = re.search(r"WHERE\s(.*)", query).groups()[0]
+        sub = re.search(r"WHERE\s(.*)", self.query).groups()[0]
         col = re.sub(" \d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|\'.*\'|\".*\"|;", " ", sub).split()
         #print col
         s=np.array([self.d_table[table][x] for x in col])
         index_array = np.append(s,self.index_list+self.col_len)
-        #print index_array
+        print index_array
         #print "column", col
-        input_state = np.zeros(2*self.col_len, dtype=int)
+        input_state = np.ones(2*self.col_len, dtype=int) * -1
         np.put(input_state,index_array,np.ones(len(index_array), dtype=int))
         return input_state

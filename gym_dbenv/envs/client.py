@@ -20,7 +20,7 @@ from string import ascii_lowercase
 #cur.execute("SHOW STATUS")
 #rows  = cur.fetchall()
 
-TABLE = "CUSTOMER"
+TABLE = os.environ.get('SQLTABLE')
 
 class DBENGINE():
 
@@ -41,26 +41,27 @@ class DBENGINE():
         return self.cur.fetchall()
 
     def column_schema(self):
-        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" AND  TABLE_NAME = \""+TABLE+"\"")
+        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" " )
+        #+"AND  TABLE_NAME = \""+TABLE+"\"")
         return self.cur.fetchall()
 
     def index_schema(self):
-        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" AND  TABLE_NAME = \""+TABLE+"\"")
+        self.cur.execute("SELECT TABLE_NAME, COLUMN_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" " )
+        #+"AND  TABLE_NAME = \""+TABLE+"\"")
         return self.cur.fetchall()
 
     def get_column_count(self):
-        self.cur.execute("SELECT TABLE_NAME, count(*)  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\"  AND  TABLE_NAME = \""+TABLE+"\" GROUP BY TABLE_NAME HAVING COUNT(*)>1 ;")
+        self.cur.execute("SELECT TABLE_NAME, count(*)  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \""+os.environ.get('MYSQL_DB')+"\" " + "GROUP BY TABLE_NAME HAVING COUNT(*)>1;" )
+        #+" AND  TABLE_NAME = \""+TABLE+"\" GROUP BY TABLE_NAME HAVING COUNT(*)>1 ;")
         return self.cur.fetchall()
 
     def get_query_cost(self,query):
         self.cur.execute("explain format=JSON "+ query)
         return self.cur.fetchall()
 
-    def create_index(self, index):
-        index_name = "rl_" + "".join([choice(ascii_lowercase) for _ in range(4)])
+    def create_index(self, index, index_name):
         self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
         self.index_table.append((index_name,index[0],index[1]))
-        #print self.index_table
 
     def clear_index(self):
         for i in self.index_table:

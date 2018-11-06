@@ -1,0 +1,768 @@
+Index set on  DISTRICT  for  D_CITY
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_SINCE
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_STATE
+------------ step= 17 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  OORDER  for  O_CARRIER_ID
+------------ step= 16 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_TAX
+------------ step= 15 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  OORDER  for  O_ENTRY_D
+------------ step= 14 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_C_ID
+------------ step= 13 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+------------ step= 12 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_CITY
+------------ [u'PRIMARY']
+step= 11 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_NAME
+------------ [u'PRIMARY']
+step= 10 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_W_ID
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_QUANTITY
+------------ [u'PRIMARY']
+step= 8 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_PAYMENT_CNT
+------------ [u'PRIMARY']
+step= 7 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_06
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_REMOTE_CNT
+------------ step= 5 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  OORDER  for  O_C_ID
+------------ [u'PRIMARY']
+step= 4 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'PRIMARY']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_NEXT_O_ID
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  ORDER_LINE  for  OL_D_ID
+------------ [u'PRIMARY']
+step= 1 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_W_ID
+------------ step= 0 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+------------ [u'PRIMARY']
+step= -1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+episode: 0/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  DISTRICT  for  D_NAME
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_DELIVERY_D
+------------ [u'PRIMARY']
+step= 18 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  ORDER_LINE  for  OL_AMOUNT
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_CARRIER_ID
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  ITEM  for  I_NAME
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_ZIP
+------------ [u'PRIMARY']
+step= 14 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_MIDDLE
+------------ step= 13 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_ORDER_CNT
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_O_ID
+------------ [u'PRIMARY']
+step= 11 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  HISTORY  for  H_W_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_NAME']
+step= 10 		 reward= 0 	query cost= 19958.09 	cost= 1.2
+Index set on  NEW_ORDER  for  NO_O_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_NAME']
+step= 9 		 reward= 0 	query cost= 19958.09 	cost= 1.2
+Index set on  CUSTOMER  for  C_STREET_1
+------------ [u'PRIMARY']
+step= 8 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ step= 7 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_NAME
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_W_ID
+------------ [u'PRIMARY']
+step= 5 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_STREET_1
+------------ [u'PRIMARY']
+step= 4 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DIST_06
+------------ [u'PRIMARY']
+step= 3 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_DIST_02
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_D_ID
+------------ [u'PRIMARY']
+step= 1 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ITEM  for  I_PRICE
+------------ [u'rl_ITEM_I_PRICE']
+found key
+step= 0 		 reward= 1 	query cost= 20454.2 	cost= 12721.41
+Index set on  DISTRICT  for  D_YTD
+------------ [u'rl_ITEM_I_PRICE']
+step= -1 		 reward= 0 	query cost= 20454.2 	cost= 12721.41
+episode: 1/300, score: 20, e: 1.0
+Total REWARD = 1
+Index set on  DISTRICT  for  D_STREET_2
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  ORDER_LINE  for  OL_DELIVERY_D
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_ZIP
+------------ step= 17 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_TAX
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_CARRIER_ID
+------------ step= 15 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_ZIP
+------------ [u'PRIMARY']
+step= 14 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_06
+------------ [u'PRIMARY']
+step= 13 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_D_ID
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_TAX
+------------ step= 11 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+------------ [u'PRIMARY']
+step= 10 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_W_ID
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_DELIVERY_CNT
+------------ step= 8 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ORDER_LINE  for  OL_QUANTITY
+------------ step= 7 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_PHONE
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_YTD
+------------ [u'PRIMARY']
+step= 5 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+------------ [u'PRIMARY']
+step= 4 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_W_ID
+------------ [u'PRIMARY']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_STATE
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DIST_02
+------------ step= 1 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_ID
+------------ [u'PRIMARY']
+step= 0 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  DISTRICT  for  D_NAME
+------------ [u'PRIMARY']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+episode: 2/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  HISTORY  for  H_D_ID
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_ALL_LOCAL
+------------ [u'PRIMARY']
+step= 18 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_10
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_CITY
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_STREET_1
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  ITEM  for  I_PRICE
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+found key
+step= 14 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_DELIVERY_CNT
+------------ [u'rl_ITEM_I_PRICE']
+step= 13 		 reward= 0 	query cost= 20454.2 	cost= 10.81
+Index set on  CUSTOMER  for  C_LAST
+------------ [u'rl_ITEM_I_PRICE']
+step= 12 		 reward= 0 	query cost= 20454.2 	cost= 10.81
+Index set on  CUSTOMER  for  C_CREDIT
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 11 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_W_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 10 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_O_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 9 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+Index set on  OORDER  for  O_OL_CNT
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 8 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  ORDER_LINE  for  OL_DELIVERY_D
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 7 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DIST_06
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 6 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+Index set on  CUSTOMER  for  C_STATE
+------------ [u'rl_ITEM_I_PRICE']
+step= 5 		 reward= 0 	query cost= 20454.2 	cost= 12721.41
+Index set on  DISTRICT  for  D_TAX
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 4 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_DIST_09
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 2 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_PAYMENT_CNT
+------------ [u'rl_ITEM_I_PRICE']
+step= 1 		 reward= 0 	query cost= 20454.2 	cost= 12721.41
+Index set on  DISTRICT  for  D_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 0 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+episode: 3/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  CUSTOMER  for  C_SINCE
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_STREET_2
+------------ [u'PRIMARY']
+step= 18 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_CREDIT_LIM
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  DISTRICT  for  D_W_ID
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_W_ID
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_03
+------------ step= 14 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  DISTRICT  for  D_ZIP
+------------ step= 13 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_STATE
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_C_ID
+------------ [u'PRIMARY']
+step= 11 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+------------ step= 10 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_W_ID
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'PRIMARY']
+step= 8 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_CREDIT
+------------ [u'PRIMARY']
+step= 7 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_PAYMENT_CNT
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  OORDER  for  O_OL_CNT
+------------ [u'PRIMARY']
+step= 5 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  NEW_ORDER  for  NO_D_ID
+------------ [u'PRIMARY']
+step= 4 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_CARRIER_ID
+------------ [u'PRIMARY']
+step= 3 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_DATA
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ step= 1 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_C_D_ID
+------------ [u'PRIMARY']
+step= 0 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_I_ID
+------------ [u'PRIMARY']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+episode: 4/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  OORDER  for  O_D_ID
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_W_ID
+------------ [u'PRIMARY']
+step= 18 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ITEM  for  I_IM_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+found key
+step= 17 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_MIDDLE
+------------ [u'rl_ITEM_I_IM_ID']
+step= 16 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_CITY
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 15 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_NAME
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 14 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_STATE
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 13 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  HISTORY  for  H_C_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 12 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  ORDER_LINE  for  OL_O_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 11 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_STATE
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 10 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_W_ID
+------------ [u'rl_ITEM_I_IM_ID']
+step= 9 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ORDER_LINE  for  OL_DIST_INFO
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 8 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_YTD
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 7 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_TAX
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 6 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  ITEM  for  I_PRICE
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID', u'rl_ITEM_I_PRICE']
+found key
+step= 5 		 reward= 1 	query cost= 19958.09 	cost= 27.61
+Index set on  STOCK  for  S_DATA
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID', u'rl_ITEM_I_PRICE']
+step= 4 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_W_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+Index set on  STOCK  for  S_DIST_08
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID', u'rl_ITEM_I_PRICE']
+step= 2 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'rl_ITEM_I_IM_ID', u'rl_ITEM_I_PRICE']
+step= 1 		 reward= 0 	query cost= 20454.2 	cost= 12721.41
+Index set on  WAREHOUSE  for  W_STREET_1
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID', u'rl_ITEM_I_PRICE']
+step= 0 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DIST_02
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID', u'rl_ITEM_I_PRICE']
+step= -1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+episode: 5/300, score: 20, e: 1.0
+Total REWARD = 1
+Index set on  OORDER  for  O_D_ID
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_YTD
+------------ [u'PRIMARY']
+step= 18 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  HISTORY  for  H_W_ID
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  OORDER  for  O_W_ID
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_ID
+------------ step= 15 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DATA
+------------ step= 14 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_W_ID
+------------ step= 13 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_DATA
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_REMOTE_CNT
+------------ step= 11 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+------------ step= 10 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_D_ID
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_QUANTITY
+------------ [u'PRIMARY']
+step= 8 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_SUPPLY_W_ID
+------------ [u'PRIMARY']
+step= 7 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_YTD_PAYMENT
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ [u'PRIMARY']
+step= 5 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ITEM  for  I_DATA
+------------ [u'PRIMARY']
+step= 4 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_DISCOUNT
+------------ step= 3 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ORDER_LINE  for  OL_DIST_INFO
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_ORDER_CNT
+------------ [u'PRIMARY']
+step= 1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ [u'PRIMARY']
+step= 0 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'PRIMARY']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+episode: 6/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  CUSTOMER  for  C_SINCE
+------------ step= 19 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_REMOTE_CNT
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DIST_06
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_I_ID
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_D_ID
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_ID
+------------ [u'PRIMARY']
+step= 14 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  NEW_ORDER  for  NO_D_ID
+------------ [u'PRIMARY']
+step= 13 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_CITY
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ITEM  for  I_IM_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+found key
+step= 11 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+------------ [u'rl_ITEM_I_IM_ID']
+step= 10 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_AMOUNT
+------------ [u'rl_ITEM_I_IM_ID']
+step= 9 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DIST_04
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 8 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_STREET_2
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 7 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  ORDER_LINE  for  OL_SUPPLY_W_ID
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DIST_05
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 5 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_ENTRY_D
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 4 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_TAX
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 3 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_STREET_1
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 2 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  OORDER  for  O_ALL_LOCAL
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 1 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_CITY
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 0 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_NEXT_O_ID
+------------ step= -1 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+episode: 7/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  WAREHOUSE  for  W_ID
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  NEW_ORDER  for  NO_W_ID
+------------ [u'PRIMARY']
+step= 18 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_CARRIER_ID
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_ID
+------------ step= 16 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_LAST
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_09
+------------ [u'PRIMARY']
+step= 14 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_REMOTE_CNT
+------------ [u'PRIMARY']
+step= 13 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_TAX
+------------ step= 12 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_STREET_1
+------------ [u'PRIMARY']
+step= 11 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  DISTRICT  for  D_CITY
+------------ step= 10 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_PAYMENT_CNT
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DIST_02
+------------ [u'PRIMARY']
+step= 8 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+------------ [u'PRIMARY']
+step= 7 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  ITEM  for  I_NAME
+------------ [u'PRIMARY']
+step= 5 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  WAREHOUSE  for  W_STATE
+------------ step= 4 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_W_ID
+------------ step= 3 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  NEW_ORDER  for  NO_D_ID
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_08
+------------ step= 1 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_ZIP
+------------ [u'PRIMARY']
+step= 0 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  DISTRICT  for  D_ID
+------------ [u'PRIMARY']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+episode: 8/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  ORDER_LINE  for  OL_QUANTITY
+------------ [u'PRIMARY']
+step= 19 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_FIRST
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_DATA
+------------ step= 17 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_DATA
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_SUPPLY_W_ID
+------------ step= 15 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_TAX
+------------ [u'PRIMARY']
+step= 14 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_D_ID
+------------ [u'PRIMARY']
+step= 13 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_CREDIT_LIM
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'PRIMARY']
+step= 11 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  WAREHOUSE  for  W_STREET_1
+------------ step= 10 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  WAREHOUSE  for  W_YTD
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  ITEM  for  I_PRICE
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+found key
+step= 8 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  STOCK  for  S_W_ID
+------------ [u'rl_ITEM_I_PRICE']
+step= 7 		 reward= 0 	query cost= 20454.2 	cost= 12721.41
+Index set on  CUSTOMER  for  C_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 6 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_08
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 5 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+found key
+step= 4 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_CITY
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+Index set on  WAREHOUSE  for  W_CITY
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 2 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+Index set on  STOCK  for  S_DIST_05
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_STREET_2
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= 0 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+Index set on  ORDER_LINE  for  OL_DIST_INFO
+------------ [u'PRIMARY', u'rl_ITEM_I_PRICE']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 27.61
+episode: 9/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  STOCK  for  S_DIST_02
+------------ step= 19 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  DISTRICT  for  D_STREET_2
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  OORDER  for  O_W_ID
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_D_ID
+------------ step= 16 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  DISTRICT  for  D_STREET_1
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_W_ID
+------------ [u'PRIMARY']
+step= 14 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_OL_CNT
+------------ [u'PRIMARY']
+step= 13 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  STOCK  for  S_DATA
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_D_ID
+------------ step= 11 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  DISTRICT  for  D_TAX
+------------ [u'PRIMARY']
+step= 10 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_QUANTITY
+------------ [u'PRIMARY']
+step= 9 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_STATE
+------------ [u'PRIMARY']
+step= 8 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_STATE
+------------ step= 7 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  OORDER  for  O_D_ID
+------------ [u'PRIMARY']
+step= 6 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_YTD
+------------ [u'PRIMARY']
+step= 5 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  ORDER_LINE  for  OL_DELIVERY_D
+------------ [u'PRIMARY']
+step= 4 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  HISTORY  for  H_C_ID
+------------ [u'PRIMARY']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_YTD
+------------ [u'PRIMARY']
+step= 2 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  WAREHOUSE  for  W_NAME
+------------ [u'PRIMARY']
+step= 1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_TAX
+------------ [u'PRIMARY']
+step= 0 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  DISTRICT  for  D_NEXT_O_ID
+------------ [u'PRIMARY']
+step= -1 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+episode: 10/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  STOCK  for  S_DIST_10
+------------ step= 19 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ITEM  for  I_NAME
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ORDER_LINE  for  OL_AMOUNT
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  HISTORY  for  H_DATE
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_TAX
+------------ [u'PRIMARY']
+step= 15 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  DISTRICT  for  D_STREET_2
+------------ [u'PRIMARY', u'rl_ITEM_I_NAME']
+step= 14 		 reward= 0 	query cost= 19958.09 	cost= 1.2
+Index set on  ORDER_LINE  for  OL_W_ID
+------------ [u'PRIMARY']
+step= 13 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+------------ step= 12 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_C_W_ID
+------------ [u'PRIMARY']
+step= 11 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_STREET_1
+------------ [u'PRIMARY', u'rl_ITEM_I_NAME']
+step= 10 		 reward= 0 	query cost= 19958.09 	cost= 1.2
+Index set on  DISTRICT  for  D_W_ID
+------------ step= 9 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ITEM  for  I_ID
+------------ step= 8 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DIST_07
+------------ step= 7 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  NEW_ORDER  for  NO_W_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_ID']
+step= 6 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  OORDER  for  O_ENTRY_D
+------------ step= 5 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+------------ [u'PRIMARY', u'rl_ITEM_I_ID']
+step= 4 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  DISTRICT  for  D_YTD
+------------ step= 3 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DIST_06
+------------ [u'PRIMARY', u'rl_ITEM_I_ID']
+step= 2 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_MIDDLE
+------------ step= 1 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_I_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_ID']
+step= 0 		 reward= 0 	query cost= 6482.16 	cost= 6482.16
+Index set on  CUSTOMER  for  C_SINCE
+------------ step= -1 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+episode: 11/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  ORDER_LINE  for  OL_D_ID
+------------ step= 19 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DIST_01
+------------ step= 18 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  HISTORY  for  H_W_ID
+------------ [u'PRIMARY']
+step= 17 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  OORDER  for  O_CARRIER_ID
+------------ [u'PRIMARY']
+step= 16 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  HISTORY  for  H_D_ID
+------------ step= 15 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  STOCK  for  S_DIST_06
+------------ step= 14 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  ITEM  for  I_IM_ID
+------------ step= 13 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  OORDER  for  O_D_ID
+------------ [u'PRIMARY']
+step= 12 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  WAREHOUSE  for  W_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 11 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  ORDER_LINE  for  OL_DELIVERY_D
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 10 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  OORDER  for  O_ALL_LOCAL
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 9 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 8 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  CUSTOMER  for  C_CREDIT_LIM
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 7 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_02
+------------ [u'rl_ITEM_I_IM_ID']
+step= 6 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
+Index set on  CUSTOMER  for  C_STATE
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 5 		 reward= 0 	query cost= 401.57 	cost= 401.57
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 4 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  DISTRICT  for  D_STREET_2
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 3 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  HISTORY  for  H_C_ID
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 2 		 reward= 0 	query cost= 19958.09 	cost= 19958.09
+Index set on  CUSTOMER  for  C_SINCE
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  WAREHOUSE  for  W_STATE
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= 0 		 reward= 0 	query cost= 401.57 	cost= 401.57
+Index set on  STOCK  for  S_DIST_03
+------------ [u'PRIMARY', u'rl_ITEM_I_IM_ID']
+step= -1 		 reward= 0 	query cost= 401.57 	cost= 401.57
+episode: 12/300, score: 20, e: 1.0
+Total REWARD = 0
+Index set on  STOCK  for  S_DATA
+------------ step= 19 		 reward= 0 	query cost= 20454.2 	cost= 20454.2
