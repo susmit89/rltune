@@ -7,7 +7,7 @@ import random
 import re
 import json
 
-INDEX_LIMIT = 50
+INDEX_LIMIT = 20
 
 class DBENV(gym.Env):
 
@@ -72,7 +72,7 @@ class DBENV(gym.Env):
            done = False
         self.index_count = self.index_count - 1
         cost = max((self.query_cost/self.cost)-1,0)
-        reward = -1
+        reward = 0
         if cost > 0 and key == True:
             reward = 10
         self.state = self.get_state()
