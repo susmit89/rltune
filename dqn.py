@@ -5,6 +5,7 @@ import gym_dbenv
 import numpy as np
 import pickle
 from collections import deque
+from keras import initializers
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
@@ -21,10 +22,10 @@ class DQNAgent:
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=10000)
-        self.gamma = 0.95    # discount rate
+        self.gamma = 0.80    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
-        self.epsilon_decay = 0.999
+        self.epsilon_decay = 0.99
         self.learning_rate = 0.1
         self.model = self._build_model()
         #self.target_model = self._build_model()
@@ -78,8 +79,9 @@ class DQNAgent:
         target_vec[0][action] = target
         print target_vec
         self.model.fit(state, target_vec, epochs=1, verbose=1)
-        if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay
+        if done == True:    
+            if self.epsilon > self.epsilon_min:
+                 self.epsilon *= self.epsilon_decay
 
     def replay(self, batch_size):
         minibatch = random.sample(self.memory, batch_size)
@@ -126,14 +128,14 @@ if __name__ == "__main__":
     agent = DQNAgent(state_size, action_size)
 
     ## mathplot
-    plot_1 = plt.subplot(211)
-    plt.xlabel('Set Indexed')
-    plt.ylabel('Steps')
-    plt.xticks(range(env.col_len),
-       list(zip(*env.t_columns)[1]), fontsize=4)
-    plot_2 = plt.subplot(212)
-    plt.ylabel('exploration rate')
-    plt.xlabel('Steps')
+    #plot_1 = plt.subplot(211)
+    #plt.xlabel('Set Indexed')
+    #plt.ylabel('Steps')
+    #plt.xticks(range(env.col_len),
+    #   list(zip(*env.t_columns)[1]), fontsize=4)
+    #plot_2 = plt.subplot(212)
+    #plt.ylabel('exploration rate')
+    #plt.xlabel('Steps')
     #plt.yticks(range(env.col_len),
     #   list(env.t_columns))
 
@@ -158,9 +160,9 @@ if __name__ == "__main__":
             agent.remember(state, action, reward, next_state, done)
             agent.net_update(state, action, reward, next_state, done)
             state = next_state
-            plot_1.scatter(action,e,10)
-            plot_2.scatter(e,agent.epsilon,10)
-            plt.pause(0.05)
+            #plot_1.scatter(action,e,10)
+            #plot_2.scatter(e,agent.epsilon,10)
+            #plt.pause(0.05)
             #if len(agent.memory) > batch_size:
             #    agent.replay(batch_size)
             if done:
@@ -174,5 +176,5 @@ if __name__ == "__main__":
 
         print "Total REWARD =",  t_reward
         if e % 10 == 0:
-             plt.savefig("figure1.ps")
+             #plt.savefig("figure1.ps")
              agent.save("db_model.h5")

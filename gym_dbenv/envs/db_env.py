@@ -72,9 +72,9 @@ class DBENV(gym.Env):
            done = False
         self.index_count = self.index_count - 1
         cost = max((self.query_cost/self.cost)-1,0)
-        reward = 0
+        reward = -1
         if cost > 0 and key == True:
-            reward = 10
+            reward = 1
         self.state = self.get_state()
         #print "next_state",self.state
         info = {}
