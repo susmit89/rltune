@@ -66,7 +66,7 @@ class DBENV(gym.Env):
         #print self.cost
         #print self.query_cost
         #print("count",self.index_count)
-        if self.index_count == 0:
+        if self.index_count == 1:
            done = True
         else:
            done = False

@@ -7,7 +7,7 @@ from keras.models import load_model
 import rl
 from rl.agents import DQNAgent
 from rl.policy import BoltzmannQPolicy
-from rl.memory import SequentialMemory
+from rl.memory import SequentialMemory, EpisodeParameterMemory
 from keras.models import load_model
 ENV_NAME = 'DB-v0'
 env = gym.make(ENV_NAME)
@@ -34,13 +34,14 @@ except:
     model.add(Dense(nb_actions))
     model.add(Activation('sigmoid'))
 print(model.summary())
-memory = SequentialMemory(limit=50000, window_length=1)
-policy = BoltzmannQPolicy()
-dqn = rl.agents.cem.CEMAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=5000
+#memory = SequentialMemory(limit=50000, window_length=1)
+memory = EpisodeParameterMemory(limit=2000, window_length=1)
+#policy = BoltzmannQPolicy()
+dqn = rl.agents.cem.CEMAgent(model=model, nb_actions=nb_actions, memory=memory, batch_size=50, nb_steps_warmup=2000, train_interval=50, elite_frac=0.05
                )
-dqn.compile("adam", metrics=['mae','accuracy'])
+dqn.compile()
 
-dqn.fit(env, nb_steps=5000, visualize=False, verbose=2)
+dqn.fit(env, nb_steps=100000, visualize=False, verbose=2)
 
 dqn.save_weights('dqn_{}_weights.h5f'.format(ENV_NAME), overwrite=True)
 model.save('db_model.h5')
