@@ -75,7 +75,7 @@ class DBENV(gym.Env):
         reward = -1
         if cost > 0 and key == True:
             reward = 1
-        self.state = self.get_state()
+        self.state = self.get_state(action)
         #print "next_state",self.state
         info = {}
         print "step=",self.index_count,"\t\t reward=",reward, "\tquery cost=",self.query_cost, "\tcost=", self.cost
@@ -87,7 +87,7 @@ class DBENV(gym.Env):
         self.db.clear_index()
         np.random.shuffle(self.queries)
         self.done = False
-        state = self.get_state()
+        state = self.get_state(0)
         return state
 
     def render(self, mode='human'):
@@ -118,9 +118,8 @@ class DBENV(gym.Env):
     def calculate_reward(self):
         self.db.state(self.queries[i])
 
-    def get_state(self):
+    def get_state(self,action):
         self.n_query = next(self.query_len)
-
         self.query = self.query_dict[self.n_query]["query"]
         table = re.search(r"FROM\s(.*)WHERE", self.query).groups()[0].strip()
         #print "table", table
@@ -128,7 +127,7 @@ class DBENV(gym.Env):
         col = re.sub(" \d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|\'.*\'|\".*\"|;", " ", sub).split()
         #print col
         s=np.array([self.d_table[table][x] for x in col])
-        index_array = np.append(s,self.index_list+self.col_len)
+        index_array = np.append(s,np.array([action], dtype=int)+self.col_len)
         print index_array
         #print "column", col
         input_state = np.ones(2*self.col_len, dtype=int) * -1

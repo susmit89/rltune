@@ -15,21 +15,21 @@ import tensorflow as tf
 import matplotlib
 import matplotlib.pyplot as plt
 #matplotlib.use('GTK')
-EPISODES = 500
+EPISODES = 5000
 
 class DQNAgent:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=10000)
-        self.gamma = 0.80    # discount rate
+        self.gamma = 0.9    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
         self.epsilon_decay = 0.99
         self.learning_rate = 0.1
         self.model = self._build_model()
-        #self.target_model = self._build_model()
-        #self.update_target_model()
+        self.target_model = self._build_model()
+        self.update_target_model()
 
     """Huber loss for Q Learning
     References: https://en.wikipedia.org/wiki/Huber_loss
@@ -57,9 +57,9 @@ class DQNAgent:
                       optimizer=Adam(lr=self.learning_rate), metrics=['mae'])
         return model
 
-    #def update_target_model(self):
-        # copy weights from model to target_model
-    #    self.target_model.set_weights(self.model.get_weights())
+    def update_target_model(self):
+        #copy weights from model to target_model
+        self.target_model.set_weights(self.model.get_weights())
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
@@ -69,6 +69,7 @@ class DQNAgent:
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
         print("model predicted action")
+        #print(act_values)
         return np.argmax(act_values[0])  # returns action
 
     def net_update(self, state, action, reward, next_state, done):
@@ -77,7 +78,7 @@ class DQNAgent:
         print target
         target_vec = self.model.predict(state)
         target_vec[0][action] = target
-        print target_vec
+        #print target_vec
         self.model.fit(state, target_vec, epochs=1, verbose=1)
         if done == True:    
             if self.epsilon > self.epsilon_min:
@@ -94,14 +95,10 @@ class DQNAgent:
             #    target[0][action] = reward
             #else:
                 # a = self.model.predict(next_state)[0]
-            #t = self.model.predict(next_state)[0]
-            #print t
-            #print(len(t))
-            target[0][action] = reward + self.gamma * np.amax(target)
-            print target
-            print(len(target[0]))
+            t = self.target_model.predict(next_state)[0]
+            target[0][action] = reward + self.gamma * np.amax(t)
                 # target[0][action] = reward + self.gamma * t[np.argmax(a)]
-            self.model.fit(state, target, epochs=1, verbose=1)
+            self.model.fit(state, target, epochs=1, verbose=0)
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
@@ -158,16 +155,16 @@ if __name__ == "__main__":
             #reward = reward if not done else -10
             next_state = np.reshape(next_state, [1, state_size])
             agent.remember(state, action, reward, next_state, done)
-            agent.net_update(state, action, reward, next_state, done)
+            #agent.net_update(state, action, reward, next_state, done)
             state = next_state
             #plot_1.scatter(action,e,10)
             #plot_2.scatter(e,agent.epsilon,10)
             #plt.pause(0.05)
-            #if len(agent.memory) > batch_size:
-            #    agent.replay(batch_size)
+            if len(agent.memory) > batch_size:
+                agent.replay(batch_size)
             if done:
                 agent.remember(state, action, reward, next_state, done)
-                #agent.update_target_model()
+                agent.update_target_model()
                 print("episode: {}/{}, score: {}, e: {:.2}"
                       .format(e, EPISODES, time, agent.epsilon))
                 break
