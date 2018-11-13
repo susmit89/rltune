@@ -74,7 +74,7 @@ class DBENV(gym.Env):
         cost = max((self.query_cost/self.cost)-1,0)
         reward = -1
         if cost > 0 and key == True:
-            reward = 1
+            reward = 10
         self.state = self.get_state(action)
         #print "next_state",self.state
         info = {}

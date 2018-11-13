@@ -10,6 +10,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
 from keras import backend as K
+from keras import losses as loss
 
 import tensorflow as tf
 import matplotlib
@@ -22,10 +23,10 @@ class DQNAgent:
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=10000)
-        self.gamma = 0.9    # discount rate
+        self.gamma = 0.94    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
-        self.epsilon_decay = 0.99
+        self.epsilon_decay = 0.999
         self.learning_rate = 0.1
         self.model = self._build_model()
         self.target_model = self._build_model()
@@ -48,13 +49,14 @@ class DQNAgent:
     def _build_model(self):
         # Neural Net for Deep-Q learning Model
         model = Sequential()
-        model.add(Dense(24, input_dim=self.state_size, activation='relu'))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(self.action_size, activation='linear'))
-        model.compile(loss='mse',
-                      optimizer=Adam(lr=self.learning_rate), metrics=['mae'])
+        model.add(Dense(200, input_dim=self.state_size, activation='relu'))
+        #model.add(Dense(10, activation='relu'))
+        model.add(Dense(100, activation='relu'))
+        #model.add(Dense(10, activation='relu'))
+        #model.add(Dense(10, activation='relu'))
+        model.add(Dense(self.action_size, activation='softmax'))
+        model.compile(loss='categorical_crossentropy',
+                      optimizer=Adam(lr=self.learning_rate))
         return model
 
     def update_target_model(self):
@@ -66,6 +68,9 @@ class DQNAgent:
 
     def act(self, state):
         if np.random.rand() <= self.epsilon:
+            act_values = self.model.predict(state)
+            print(act_values)
+            print("learning model predicted: {}".format(np.argmax(act_values[0]))) 
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
         print("model predicted action")
@@ -86,10 +91,7 @@ class DQNAgent:
 
     def replay(self, batch_size):
         minibatch = random.sample(self.memory, batch_size)
-        i=0
         for state, action, reward, next_state, done in minibatch:
-            print(i)
-            i = i+1
             target = self.model.predict(state)
             #if done:
             #    target[0][action] = reward
@@ -97,8 +99,9 @@ class DQNAgent:
                 # a = self.model.predict(next_state)[0]
             t = self.target_model.predict(next_state)[0]
             target[0][action] = reward + self.gamma * np.amax(t)
+            print target
                 # target[0][action] = reward + self.gamma * t[np.argmax(a)]
-            self.model.fit(state, target, epochs=1, verbose=0)
+            self.model.fit(state, target, epochs=1, verbose=1)
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
