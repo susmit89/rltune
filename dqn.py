@@ -8,7 +8,7 @@ from collections import deque
 from keras import initializers
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD
 from keras import backend as K
 from keras import losses as loss
 
@@ -49,14 +49,14 @@ class DQNAgent:
     def _build_model(self):
         # Neural Net for Deep-Q learning Model
         model = Sequential()
-        model.add(Dense(200, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(200, input_dim=self.state_size, activation='relu', kernel_initializer='random_uniform'))
         #model.add(Dense(10, activation='relu'))
-        model.add(Dense(100, activation='relu'))
+        model.add(Dense(100, activation='relu', kernel_initializer='random_uniform'))
         #model.add(Dense(10, activation='relu'))
         #model.add(Dense(10, activation='relu'))
-        model.add(Dense(self.action_size, activation='softmax'))
-        model.compile(loss='categorical_crossentropy',
-                      optimizer=Adam(lr=self.learning_rate))
+        model.add(Dense(self.action_size, activation='linear'))
+        model.compile(loss='mse',
+                      optimizer=SGD(lr=self.learning_rate))
         return model
 
     def update_target_model(self):
@@ -99,9 +99,9 @@ class DQNAgent:
                 # a = self.model.predict(next_state)[0]
             t = self.target_model.predict(next_state)[0]
             target[0][action] = reward + self.gamma * np.amax(t)
-            print target
+            #print target
                 # target[0][action] = reward + self.gamma * t[np.argmax(a)]
-            self.model.fit(state, target, epochs=1, verbose=1)
+            self.model.fit(state, target, epochs=1, verbose=0)
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
