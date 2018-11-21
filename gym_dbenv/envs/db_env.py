@@ -1,6 +1,7 @@
 import gym
 from gym import error, spaces, utils
 from client import DBENGINE
+from pg_client import PGDB
 from itertools import cycle
 import numpy as np
 import random
@@ -8,11 +9,15 @@ import re
 import json
 
 INDEX_LIMIT = 20
+TYPE = os.environ.get('DBTYPE')
 
 class DBENV(gym.Env):
 
     def __init__(self):
-        self.db = DBENGINE()
+        if TYPE == "postgresql":
+            self.db = PGDB()
+        else:
+            self.db = DBENGINE()
         self.queries = np.array(self.db.get_query_workload().splitlines())
 
         self.t_columns = self.db.column_schema()
