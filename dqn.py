@@ -16,14 +16,15 @@ import tensorflow as tf
 import matplotlib
 import matplotlib.pyplot as plt
 #matplotlib.use('GTK')
-EPISODES = 5000
+EPISODES = 1000
 
 class DQNAgent:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=10000)
-        self.gamma = 0.94    # discount rate
+        self.reward_memory = []
+        self.gamma = 0.90    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
         self.epsilon_decay = 0.999
@@ -47,16 +48,17 @@ class DQNAgent:
         return K.mean(tf.where(cond, squared_loss, quadratic_loss))
 
     def _build_model(self):
+        #randome_uniform = initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
         # Neural Net for Deep-Q learning Model
         model = Sequential()
-        model.add(Dense(200, input_dim=self.state_size, activation='relu', kernel_initializer='random_uniform'))
-        #model.add(Dense(10, activation='relu'))
-        model.add(Dense(100, activation='relu', kernel_initializer='random_uniform'))
-        #model.add(Dense(10, activation='relu'))
+        model.add(Dense(300, input_dim=self.state_size, activation='relu', kernel_initializer='random_uniform'))
+        model.add(Dense(100, activation='relu',kernel_initializer='random_uniform'))
+        #model.add(Dense(100, activation='relu', kernel_initializer='random_uniform'))
+        model.add(Dense(100, activation='relu',kernel_initializer='random_uniform'))
         #model.add(Dense(10, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
-                      optimizer=SGD(lr=self.learning_rate))
+                      optimizer=SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True))
         return model
 
     def update_target_model(self):
@@ -65,16 +67,23 @@ class DQNAgent:
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
+        if reward > 0: 
+           self.reward_memory.append((action))
+           self.reward_memory = list(set(self.reward_memory))
 
     def act(self, state):
-        if np.random.rand() <= self.epsilon:
+        if  self.epsilon > np.random.rand():
             act_values = self.model.predict(state)
-            print(act_values)
-            print("learning model predicted: {}".format(np.argmax(act_values[0]))) 
+            self.e = 1.0
+            #print(act_values)
+            #print("learning model predicted: {}".format(np.argmax(act_values[0]))) 
             return random.randrange(self.action_size)
+        #if  np.random.rand() <= self.epsilon  and self.reward_memory:
+        #   return random.sample(self.reward_memory, 1)[0]   
         act_values = self.model.predict(state)
         print("model predicted action")
         #print(act_values)
+        self.e = 0.9995
         return np.argmax(act_values[0])  # returns action
 
     def net_update(self, state, action, reward, next_state, done):
@@ -107,13 +116,19 @@ class DQNAgent:
 
     def load(self, name):
         self.model.load_weights(name)
-        with open ('qfile', 'rb') as fp:
-             self.memory = pickle.load(fp)
+        #with open ('qfile', 'rb') as fp:
+        #     self.memory = pickle.load(fp)
 
     def save(self, name):
         self.model.save_weights(name)
-        with open('qfile', 'wb') as fp:
-             pickle.dump(self.memory, fp)
+        #with open('qfile', 'wb') as fp:
+        #     pickle.dump(self.memory, fp)
+    def exploit(self,reward):
+        if reward < 0:
+            #print("no reward")
+            #print(self.e)
+            self.epsilon = self.epsilon/self.e
+            #print(self.epsilon)
 
 
 
@@ -126,7 +141,8 @@ if __name__ == "__main__":
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size)
-
+    action_array = np.zeros(action_size,dtype=int)
+    max_reward = -20
     ## mathplot
     #plot_1 = plt.subplot(211)
     #plt.xlabel('Set Indexed')
@@ -154,6 +170,7 @@ if __name__ == "__main__":
             # env.render()
             action = agent.act(state)
             next_state, reward, done, _ = env.step(action)
+            np.add.at(action_array,[action],1)
             t_reward = t_reward + reward
             #reward = reward if not done else -10
             next_state = np.reshape(next_state, [1, state_size])
@@ -163,6 +180,7 @@ if __name__ == "__main__":
             #plot_1.scatter(action,e,10)
             #plot_2.scatter(e,agent.epsilon,10)
             #plt.pause(0.05)
+            agent.exploit(reward)
             if len(agent.memory) > batch_size:
                 agent.replay(batch_size)
             if done:
@@ -175,6 +193,11 @@ if __name__ == "__main__":
 
 
         print "Total REWARD =",  t_reward
+        max_reward = max(t_reward, max_reward)
+        print "Max REWARD =", max_reward
         if e % 10 == 0:
              #plt.savefig("figure1.ps")
              agent.save("db_model.h5")
+             action_tup = (env.t_columns, action_array)
+             with open('actions.pickle', 'wb') as fp:
+                 pickle.dump(action_tup, fp)

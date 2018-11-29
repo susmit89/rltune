@@ -40,7 +40,7 @@ class DBENV(gym.Env):
 
     def step(self, action):
         index_name = "rl_" + self.t_columns[action][0]+"_"+ self.t_columns[action][1]
-        print "Index set on ", self.t_columns[action][0], " for ",  self.t_columns[action][1]
+        #print "Index set on ", self.t_columns[action][0], " for ",  self.t_columns[action][1]
         if action not in self.index_list:
            self.db.create_index(self.t_columns[action],index_name)
         self.index_list = np.append(self.index_list,[action])
@@ -50,17 +50,17 @@ class DBENV(gym.Env):
         self.cost = float(data["query_block"]["cost_info"]['query_cost'])
         key = False
         try:
-            print  "---------------", data["query_block"]["table"]["possible_keys"], "\n"
+            #print  "---------------", data["query_block"]["table"]["possible_keys"], "\n"
             if index_name in data["query_block"]["table"]["possible_keys"]:
                 key = True
-                print("---------------found key")
+                #print("---------------found key")
         except:
             pass
         try:
-            print  "---------------", data["query_block"]["ordering_operation"]["table"]["possible_keys"], "\n"
+            #print  "---------------", data["query_block"]["ordering_operation"]["table"]["possible_keys"], "\n"
             if index_name in data["query_block"]["ordering_operation"]["table"]["possible_keys"]:
                 key = True
-                print("---------------found key")
+                #print("---------------found key")
         except:
             pass
         #print self.cost
@@ -128,7 +128,7 @@ class DBENV(gym.Env):
         #print col
         s=np.array([self.d_table[table][x] for x in col])
         index_array = np.append(s,np.array([action], dtype=int)+self.col_len)
-        print index_array
+        #print index_array
         #print "column", col
         input_state = np.ones(2*self.col_len, dtype=int) * -1
         np.put(input_state,index_array,np.ones(len(index_array), dtype=int))
