@@ -26,7 +26,7 @@ class DQNAgent:
         self.gamma = 0.90    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
-        self.epsilon_decay = 0.99
+        self.epsilon_decay = 0.999
         self.learning_rate = 0.1
         self.model = self._build_model()
         self.target_model = self._build_model()
@@ -47,6 +47,7 @@ class DQNAgent:
         return K.mean(tf.where(cond, squared_loss, quadratic_loss))
 
     def _build_model(self):
+        #randome_uniform = initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
         # Neural Net for Deep-Q learning Model
         model = Sequential()
         model.add(Dense(300, input_dim=self.state_size, activation='relu', kernel_initializer='random_uniform'))
@@ -65,13 +66,23 @@ class DQNAgent:
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
+        if reward > 0: 
+           self.reward_memory.append((action))
+           self.reward_memory = list(set(self.reward_memory))
 
     def act(self, state):
-        if np.random.rand() <= self.epsilon:
+        if  self.epsilon > np.random.rand():
+            act_values = self.model.predict(state)
+            self.e = 1.0
+            #print(act_values)
+            #print("learning model predicted: {}".format(np.argmax(act_values[0]))) 
             return random.randrange(self.action_size)
+        #if  np.random.rand() <= self.epsilon  and self.reward_memory:
+        #   return random.sample(self.reward_memory, 1)[0]   
         act_values = self.model.predict(state)
         print("model predicted action")
         #print(act_values)
+        self.e = 0.9995
         return np.argmax(act_values[0])  # returns action
 
     def net_update(self, state, action, reward, next_state, done):
@@ -88,10 +99,7 @@ class DQNAgent:
 
     def replay(self, batch_size):
         minibatch = random.sample(self.memory, batch_size)
-        i=0
         for state, action, reward, next_state, done in minibatch:
-            print(i)
-            i = i+1
             target = self.model.predict(state)
             #if done:
             #    target[0][action] = reward
@@ -99,6 +107,7 @@ class DQNAgent:
                 # a = self.model.predict(next_state)[0]
             t = self.target_model.predict(next_state)[0]
             target[0][action] = reward + self.gamma * np.amax(t)
+            #print target
                 # target[0][action] = reward + self.gamma * t[np.argmax(a)]
             self.model.fit(state, target, epochs=1, verbose=0)
         if self.epsilon > self.epsilon_min:
@@ -106,13 +115,19 @@ class DQNAgent:
 
     def load(self, name):
         self.model.load_weights(name)
-        with open ('qfile', 'rb') as fp:
-             self.memory = pickle.load(fp)
+        #with open ('qfile', 'rb') as fp:
+        #     self.memory = pickle.load(fp)
 
     def save(self, name):
         self.model.save_weights(name)
-        with open('qfile', 'wb') as fp:
-             pickle.dump(self.memory, fp)
+        #with open('qfile', 'wb') as fp:
+        #     pickle.dump(self.memory, fp)
+    def exploit(self,reward):
+        if reward < 0:
+            #print("no reward")
+            #print(self.e)
+            self.epsilon = self.epsilon/self.e
+            #print(self.epsilon)
 
 
 
@@ -125,7 +140,8 @@ if __name__ == "__main__":
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size)
-
+    action_array = np.zeros(action_size,dtype=int)
+    max_reward = -20
     ## mathplot
     #plot_1 = plt.subplot(211)
     #plt.xlabel('Set Indexed')
@@ -153,6 +169,7 @@ if __name__ == "__main__":
             # env.render()
             action = agent.act(state)
             next_state, reward, done, _ = env.step(action)
+            np.add.at(action_array,[action],1)
             t_reward = t_reward + reward
             #reward = reward if not done else -10
             next_state = np.reshape(next_state, [1, state_size])
@@ -162,6 +179,7 @@ if __name__ == "__main__":
             #plot_1.scatter(action,e,10)
             #plot_2.scatter(e,agent.epsilon,10)
             #plt.pause(0.05)
+            agent.exploit(reward)
             if len(agent.memory) > batch_size:
                 agent.replay(batch_size)
             if done:
@@ -174,6 +192,11 @@ if __name__ == "__main__":
 
 
         print "Total REWARD =",  t_reward
+        max_reward = max(t_reward, max_reward)
+        print "Max REWARD =", max_reward
         if e % 10 == 0:
              #plt.savefig("figure1.ps")
              agent.save("db_model.h5")
+             action_tup = (env.t_columns, action_array)
+             with open('actions.pickle', 'wb') as fp:
+                 pickle.dump(action_tup, fp)

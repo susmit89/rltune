@@ -49,7 +49,6 @@ class DBENV(gym.Env):
         self.index_list = np.append(self.index_list,[action])
         self.db.state(self.query)
         self.query_cost = self.query_dict[self.n_query]["cost"]
-        (self.cost, key) = self.db.get_query_cost(self.query, index_name)
         #print self.cost
         #print self.query_cost
         #print("count",self.index_count)
@@ -90,7 +89,7 @@ class DBENV(gym.Env):
         col = self.query_dict[self.n_query]["columns"]
         s=np.array([self.t_columns.index(x) for x in col])
         index_array = np.append(s,np.array([action], dtype=int)+self.col_len)
-        
+
         input_state = np.ones(2*self.col_len, dtype=int) * -1
         np.put(input_state,index_array,np.ones(len(index_array), dtype=int))
         return input_state
