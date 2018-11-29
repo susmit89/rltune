@@ -56,7 +56,7 @@ class DQNAgent:
         #model.add(Dense(10, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
-                      optimizer=Adam(lr=self.learning_rate), metrics=['mae'])
+                      optimizer=SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True))
         return model
 
     def update_target_model(self):

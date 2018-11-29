@@ -25,7 +25,6 @@ class DBENV(gym.Env):
         self.query_len = len(self.query_dict.keys())
         self.n_columns = self.db.get_column_count()
         self.d_table = dict((x, {}) for x, y in self.n_columns)
-        self.table_dict()
         lst = range(len(self.query_dict.keys()))
         self.query_len = cycle(lst)
         #print self.d_table
@@ -82,13 +81,6 @@ class DBENV(gym.Env):
         print("Rendering")
         return 1
 
-    def table_dict(self):
-        i=0
-        for x,y in self.t_columns:
-            self.d_table[x][y]=i
-            i=i+1
-
-
     def calculate_reward(self):
         self.db.state(self.queries[i])
 
@@ -96,18 +88,8 @@ class DBENV(gym.Env):
         self.n_query = next(self.query_len)
         self.query = self.query_dict[self.n_query]["query"]
         col = self.query_dict[self.n_query]["columns"]
-        #table = re.search(r"FROM\s(.*)WHERE", self.query).groups()[0].strip()
-        #print "table", table
-        #sub = list(re.search(r"WHERE\s(.*)|where\s(.*)", self.query).groups())
-        #str = " ".join([x for x in sub if x is not None])
-        #col = re.sub("'([^']*)'|\"([^']*)\"|\d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|limit\s(.*)|;", " ", str).split()
-        #print col
         s=np.array([self.t_columns.index(x) for x in col])
-
-        print s
         index_array = np.append(s,np.array([action], dtype=int)+self.col_len)
-        print index_array
-        #print "column", col
         input_state = np.ones(2*self.col_len, dtype=int) * -1
         np.put(input_state,index_array,np.ones(len(index_array), dtype=int))
         return input_state
