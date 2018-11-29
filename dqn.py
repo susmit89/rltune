@@ -8,21 +8,22 @@ from collections import deque
 from keras import initializers
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD
 from keras import backend as K
+from keras import losses as loss
 
 import tensorflow as tf
 import matplotlib
 import matplotlib.pyplot as plt
 #matplotlib.use('GTK')
-EPISODES = 5000
+EPISODES = 1000
 
 class DQNAgent:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=10000)
-        self.gamma = 0.9    # discount rate
+        self.gamma = 0.90    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
         self.epsilon_decay = 0.99
@@ -48,10 +49,11 @@ class DQNAgent:
     def _build_model(self):
         # Neural Net for Deep-Q learning Model
         model = Sequential()
-        model.add(Dense(24, input_dim=self.state_size, activation='relu'))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(24, activation='relu'))
-        model.add(Dense(24, activation='relu'))
+        model.add(Dense(300, input_dim=self.state_size, activation='relu', kernel_initializer='random_uniform'))
+        model.add(Dense(100, activation='relu',kernel_initializer='random_uniform'))
+        #model.add(Dense(100, activation='relu', kernel_initializer='random_uniform'))
+        model.add(Dense(100, activation='relu',kernel_initializer='random_uniform'))
+        #model.add(Dense(10, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
         model.compile(loss='mse',
                       optimizer=Adam(lr=self.learning_rate), metrics=['mae'])
@@ -80,7 +82,7 @@ class DQNAgent:
         target_vec[0][action] = target
         #print target_vec
         self.model.fit(state, target_vec, epochs=1, verbose=1)
-        if done == True:    
+        if done == True:
             if self.epsilon > self.epsilon_min:
                  self.epsilon *= self.epsilon_decay
 
