@@ -43,7 +43,7 @@ class DBENV(gym.Env):
 
     def step(self, action):
         index_name = "rl_" + self.t_columns[action][0]+"_"+ self.t_columns[action][1]
-        print "Index set on ", self.t_columns[action][0], " for ",  self.t_columns[action][1]
+        #print "Index set on ", self.t_columns[action][0], " for ",  self.t_columns[action][1]
         if action not in self.index_list:
            self.db.create_index(self.t_columns[action],index_name)
         self.index_list = np.append(self.index_list,[action])
@@ -61,7 +61,7 @@ class DBENV(gym.Env):
         cost = max((self.query_cost/self.cost)-1,0)
         reward = -1
         if cost > 0 and key == True:
-            reward = 1
+            reward = 10
         self.state = self.get_state(action)
         #print "next_state",self.state
         info = {}
@@ -90,6 +90,7 @@ class DBENV(gym.Env):
         col = self.query_dict[self.n_query]["columns"]
         s=np.array([self.t_columns.index(x) for x in col])
         index_array = np.append(s,np.array([action], dtype=int)+self.col_len)
+        
         input_state = np.ones(2*self.col_len, dtype=int) * -1
         np.put(input_state,index_array,np.ones(len(index_array), dtype=int))
         return input_state
