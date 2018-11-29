@@ -1,4 +1,5 @@
 *.pyc
 *.h5f
 *.h5
+*.log
 qfile

@@ -23,7 +23,6 @@ class DQNAgent:
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=10000)
-        self.reward_memory = []
         self.gamma = 0.90    # discount rate
         self.epsilon = 1.0  # exploration rate
         self.epsilon_min = 0.001
@@ -94,7 +93,7 @@ class DQNAgent:
         target_vec[0][action] = target
         #print target_vec
         self.model.fit(state, target_vec, epochs=1, verbose=1)
-        if done == True:    
+        if done == True:
             if self.epsilon > self.epsilon_min:
                  self.epsilon *= self.epsilon_decay
 
