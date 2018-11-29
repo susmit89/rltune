@@ -1,10 +1,10 @@
 
 
 import pymysql
-import os
+import os, json, re
 from random import choice
 from string import ascii_lowercase
-
+import numpy as np
 
 
 
@@ -55,9 +55,26 @@ class DBENGINE():
         #+" AND  TABLE_NAME = \""+TABLE+"\" GROUP BY TABLE_NAME HAVING COUNT(*)>1 ;")
         return self.cur.fetchall()
 
-    def get_query_cost(self,query):
+    def get_query_cost(self,query, index_name):
         self.cur.execute("explain format=JSON "+ query)
-        return self.cur.fetchall()
+        data = json.loads(self.cur.fetchall()[0][0])
+        cost = float(data["query_block"]["cost_info"]['query_cost'])
+        key = False
+        try:
+            print  "---------------", data["query_block"]["table"]["possible_keys"], "\n"
+            if index_name in data["query_block"]["table"]["possible_keys"]:
+                key = True
+                print("---------------found key")
+        except:
+            pass
+        try:
+            print  "---------------", data["query_block"]["ordering_operation"]["table"]["possible_keys"], "\n"
+            if index_name in data["query_block"]["ordering_operation"]["table"]["possible_keys"]:
+                key = True
+                print("---------------found key")
+        except:
+            pass
+        return (cost, key)
 
     def create_index(self, index, index_name):
         self.cur.execute("CREATE INDEX "+index_name+" ON "+index[0]+" ("+index[1]+")")
@@ -69,4 +86,32 @@ class DBENGINE():
         self.index_table = []
 
     def get_query_workload(self):
-        return self.data
+        self.queries = np.array(self.data.splitlines())
+        return self.queries
+
+    def update_query_cost(self):
+        t_queries = {}
+        n=0
+        self.query_len = self.get_query_workload()
+        print self.query_len
+        for i in range(len(self.query_len)):
+            #self.state(self.query_len[i])
+            #data = json.loads(self.db.get_query_cost(self.queries[i])[0][0])
+            try:
+             query = self.query_len[i]
+             print self.get_query_cost(self.query_len[i], None)
+             (cost,_) = self.get_query_cost(query, None)
+             table = re.search(r"FROM\s(.*)WHERE|from\s(.*)where", query).groups()[0].strip()
+             print "table", table
+             sub = list(re.search(r"WHERE\s(.*)|where\s(.*)", query).groups())
+             str = " ".join([x for x in sub if x is not None])
+             col = re.sub("'([^']*)'|\"([^']*)\"|\d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|limit\s(.*)|;", " ", str).split()
+             tc = [(table,x) for x in col]
+             t_queries[n] = {"query":query,
+                            "cost":float(cost),"columns":tc }
+             n=n+1
+            except Exception as e:
+                print(e)
+                print("Error in",self.queries[i])
+        print t_queries
+        return t_queries

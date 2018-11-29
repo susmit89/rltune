@@ -6,9 +6,9 @@ from itertools import cycle
 import numpy as np
 import random
 import re
-import json
+import os
 
-INDEX_LIMIT = 20
+INDEX_LIMIT = 2
 TYPE = os.environ.get('DBTYPE')
 
 class DBENV(gym.Env):
@@ -18,15 +18,14 @@ class DBENV(gym.Env):
             self.db = PGDB()
         else:
             self.db = DBENGINE()
-        self.queries = np.array(self.db.get_query_workload().splitlines())
-
+        self.query_dict = self.db.update_query_cost()
+        print(self.query_dict)
         self.t_columns = self.db.column_schema()
         self.col_len = len(self.t_columns)
-        self.query_len = len(self.queries)
+        self.query_len = len(self.query_dict.keys())
         self.n_columns = self.db.get_column_count()
         self.d_table = dict((x, {}) for x, y in self.n_columns)
         self.table_dict()
-        self.query_dict = self.update_query_cost()
         lst = range(len(self.query_dict.keys()))
         self.query_len = cycle(lst)
         #print self.d_table
@@ -51,23 +50,7 @@ class DBENV(gym.Env):
         self.index_list = np.append(self.index_list,[action])
         self.db.state(self.query)
         self.query_cost = self.query_dict[self.n_query]["cost"]
-        data = json.loads(self.db.get_query_cost(self.query)[0][0])
-        self.cost = float(data["query_block"]["cost_info"]['query_cost'])
-        key = False
-        try:
-            print  "---------------", data["query_block"]["table"]["possible_keys"], "\n"
-            if index_name in data["query_block"]["table"]["possible_keys"]:
-                key = True
-                print("---------------found key")
-        except:
-            pass
-        try:
-            print  "---------------", data["query_block"]["ordering_operation"]["table"]["possible_keys"], "\n"
-            if index_name in data["query_block"]["ordering_operation"]["table"]["possible_keys"]:
-                key = True
-                print("---------------found key")
-        except:
-            pass
+        (self.cost, key) = self.db.get_query_cost(self.query, index_name)
         #print self.cost
         #print self.query_cost
         #print("count",self.index_count)
@@ -90,7 +73,7 @@ class DBENV(gym.Env):
         self.index_count = INDEX_LIMIT
         self.index_list = np.array([], dtype=int)
         self.db.clear_index()
-        np.random.shuffle(self.queries)
+        #np.random.shuffle(self.queries)
         self.done = False
         state = self.get_state(0)
         return state
@@ -105,20 +88,6 @@ class DBENV(gym.Env):
             self.d_table[x][y]=i
             i=i+1
 
-    def update_query_cost(self):
-        t_queries = {}
-        n=0
-        for i in range(self.query_len):
-            self.db.state(self.queries[i])
-            data = json.loads(self.db.get_query_cost(self.queries[i])[0][0])
-            try:
-             cost = data["query_block"]["cost_info"]['query_cost']
-             t_queries[n] = {"query":self.queries[i],
-                            "cost":float(cost) }
-             n=n+1
-            except:
-                print("Error in",self.queries[i])
-        return t_queries
 
     def calculate_reward(self):
         self.db.state(self.queries[i])
@@ -126,12 +95,16 @@ class DBENV(gym.Env):
     def get_state(self,action):
         self.n_query = next(self.query_len)
         self.query = self.query_dict[self.n_query]["query"]
-        table = re.search(r"FROM\s(.*)WHERE", self.query).groups()[0].strip()
+        col = self.query_dict[self.n_query]["columns"]
+        #table = re.search(r"FROM\s(.*)WHERE", self.query).groups()[0].strip()
         #print "table", table
-        sub = re.search(r"WHERE\s(.*)", self.query).groups()[0]
-        col = re.sub(" \d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|\'.*\'|\".*\"|;", " ", sub).split()
+        #sub = list(re.search(r"WHERE\s(.*)|where\s(.*)", self.query).groups())
+        #str = " ".join([x for x in sub if x is not None])
+        #col = re.sub("'([^']*)'|\"([^']*)\"|\d+|AND|>|=|<|.\d+|ORDER\s(.*)|FOR\s(.*)|limit\s(.*)|;", " ", str).split()
         #print col
-        s=np.array([self.d_table[table][x] for x in col])
+        s=np.array([self.t_columns.index(x) for x in col])
+
+        print s
         index_array = np.append(s,np.array([action], dtype=int)+self.col_len)
         print index_array
         #print "column", col
