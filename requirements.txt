@@ -1,5 +1,5 @@
 PyMySQL>=0.7.6 # MIT License
 gym==0.10.8
 keras===2.2.2
-tensorflow===1.10.0
+tensorflow===1.12.2
 
